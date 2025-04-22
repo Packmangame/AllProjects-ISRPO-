@@ -1,0 +1,332 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
+
+namespace Individ_News_
+{
+    public partial class MainForm : Form
+    {
+        private List<NewsSource> newsSources = new List<NewsSource>();
+        private List<NewsItem> newsItems = new List<NewsItem>();
+        private List<NewsItem> savedItems = new List<NewsItem>();
+        private UserPreferences userPreferences = new UserPreferences();
+        public MainForm()
+        {
+            InitializeComponent();
+            InitializeNewsSources();
+            LoadUserPreferences();
+            LoadSavedNews();
+        }
+        private void InitializeNewsSources()
+        {
+            // Добавляем RSS-источники новостей
+            newsSources.Add(new NewsSource
+            {
+                Name = "BBC World",
+                Url = "http://feeds.bbci.co.uk/news/world/rss.xml",
+                Category = "World"
+            });
+
+            newsSources.Add(new NewsSource
+            {
+                Name = "BBC Technology",
+                Url = "http://feeds.bbci.co.uk/news/technology/rss.xml",
+                Category = "Technology"
+            });
+
+            newsSources.Add(new NewsSource
+            {
+                Name = "Reuters Business",
+                Url = "http://feeds.reuters.com/reuters/businessNews",
+                Category = "Business"
+            });
+
+            newsSources.Add(new NewsSource
+            {
+                Name = "Reuters Technology",
+                Url = "http://feeds.reuters.com/reuters/technologyNews",
+                Category = "Technology"
+            });
+
+            // Инициализация списка категорий
+            var categories = newsSources.Select(s => s.Category).Distinct().ToList();
+            categories.ForEach(c => clbCategories.Items.Add(c));
+        }
+
+        private async void btnRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+                btnRefresh.Enabled = false;
+                newsItems.Clear();
+                lvNews.Items.Clear();
+
+                // Получаем выбранные категории
+                var selectedCategories = new List<string>();
+                foreach (var item in clbCategories.CheckedItems)
+                {
+                    selectedCategories.Add(item.ToString());
+                }
+
+                if (selectedCategories.Count == 0)
+                {
+                    MessageBox.Show("Пожалуйста, выберите хотя бы одну категорию.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Фильтруем источники по выбранным категориям
+                var filteredSources = newsSources.Where(s => selectedCategories.Contains(s.Category)).ToList();
+
+                // Загружаем новости асинхронно
+                await LoadNewsAsync(filteredSources);
+
+                // Отображаем новости
+                DisplayNews();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке новостей: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnRefresh.Enabled = true;
+                Cursor = Cursors.Default;
+            }
+        }
+
+        private async System.Threading.Tasks.Task LoadNewsAsync(List<NewsSource> sources)
+        {
+            var tasks = sources.Select(source => System.Threading.Tasks.Task.Run(() => LoadRssFeed(source)));
+            var results = await System.Threading.Tasks.Task.WhenAll(tasks);
+
+            foreach (var items in results)
+            {
+                newsItems.AddRange(items);
+            }
+
+            // Сортируем по дате (новые сначала)
+            newsItems = newsItems.OrderByDescending(n => n.PublishDate).ToList();
+        }
+
+        private List<NewsItem> LoadRssFeed(NewsSource source)
+        {
+            var items = new List<NewsItem>();
+
+            try
+            {
+                var request = WebRequest.Create(source.Url);
+                using (var response = request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                {
+                    var document = new XmlDocument();
+                    document.Load(stream);
+
+                    var nodes = document.SelectNodes("//item");
+                    if (nodes != null)
+                    {
+                        foreach (XmlNode node in nodes)
+                        {
+                            var item = new NewsItem
+                            {
+                                Title = node.SelectSingleNode("title")?.InnerText ?? "Без заголовка",
+                                Description = node.SelectSingleNode("description")?.InnerText ?? string.Empty,
+                                Link = node.SelectSingleNode("link")?.InnerText ?? string.Empty,
+                                PublishDate = ParseDate(node.SelectSingleNode("pubDate")?.InnerText),
+                                Source = source.Name,
+                                Category = source.Category
+                            };
+
+                            // Извлекаем изображение, если есть
+                            var imageNode = node.SelectSingleNode("enclosure[@type='image/jpeg']") ??
+                                          node.SelectSingleNode("enclosure[@type='image/png']");
+                            if (imageNode != null)
+                            {
+                                item.ImageUrl = imageNode.Attributes["url"]?.Value;
+                            }
+
+                            items.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Логируем ошибку, но продолжаем работу с другими источниками
+                Console.WriteLine($"Ошибка при загрузке {source.Name}: {ex.Message}");
+            }
+
+            return items;
+        }
+
+        private DateTime ParseDate(string dateString)
+        {
+            if (DateTime.TryParse(dateString, out DateTime result))
+                return result;
+            return DateTime.Now;
+        }
+
+        private void DisplayNews()
+        {
+            lvNews.BeginUpdate();
+            lvNews.Items.Clear();
+
+            foreach (var item in newsItems)
+            {
+                var lvi = new ListViewItem(item.Title);
+                lvi.SubItems.Add(item.Source);
+                lvi.SubItems.Add(item.PublishDate.ToString("g"));
+                lvi.SubItems.Add(item.Category);
+                lvi.Tag = item;
+
+                // Проверяем, сохранена ли новость
+                if (savedItems.Any(s => s.Link == item.Link))
+                {
+                    lvi.BackColor = Color.LightYellow;
+                }
+
+                lvNews.Items.Add(lvi);
+            }
+
+            lvNews.EndUpdate();
+        }
+
+        private void lvNews_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvNews.SelectedItems.Count == 0) return;
+
+            var selectedItem = lvNews.SelectedItems[0].Tag as NewsItem;
+            if (selectedItem != null)
+            {
+                var detailForm = new NewsDetailForm(selectedItem);
+                detailForm.ShowDialog();
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (lvNews.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Пожалуйста, выберите новость для сохранения.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var selectedItem = lvNews.SelectedItems[0].Tag as NewsItem;
+            if (selectedItem != null && !savedItems.Any(s => s.Link == selectedItem.Link))
+            {
+                savedItems.Add(selectedItem);
+                SaveNewsToFile();
+                lvNews.SelectedItems[0].BackColor = Color.LightYellow;
+                MessageBox.Show("Новость сохранена в избранное.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Эта новость уже сохранена.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnSavedNews_Click(object sender, EventArgs e)
+        {
+            var savedNewsForm = new SavedNewsForm(savedItems);
+            savedNewsForm.ShowDialog();
+        }
+
+        private void btnPreferences_Click(object sender, EventArgs e)
+        {
+            var preferencesForm = new PreferencesForm(userPreferences);
+            if (preferencesForm.ShowDialog() == DialogResult.OK)
+            {
+                userPreferences = preferencesForm.UserPreferences;
+                SaveUserPreferences();
+            }
+        }
+        private void SaveUserPreferences()
+        {
+            try
+            {
+                var path = Path.Combine(Application.StartupPath, "user_preferences.xml");
+                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(UserPreferences));
+                using (var file = File.Create(path))
+                {
+                    serializer.Serialize(file, userPreferences);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при сохранении настроек: {ex.Message}");
+            }
+        }
+
+
+        private void LoadUserPreferences()
+        {
+            try
+            {
+                var path = Path.Combine(Application.StartupPath, "user_preferences.xml");
+                if (File.Exists(path))
+                {
+                    var writer = new XmlSerializer(typeof(UserPreferences));
+                    using (var file = File.Create(path))
+                    {
+                        writer.Serialize(file, userPreferences);
+                    }
+
+                    // Устанавливаем выбранные категории
+                    for (int i = 0; i < clbCategories.Items.Count; i++)
+                    {
+                        clbCategories.SetItemChecked(i, userPreferences.SelectedCategories.Contains(clbCategories.Items[i].ToString()));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при загрузке настроек: {ex.Message}");
+            }
+        }
+       
+        public void SaveNewsToFile()
+        {
+            try
+            {
+                var path = Path.Combine(Application.StartupPath, "saved_news.xml");
+                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(List<NewsItem>));
+                using (var file = File.Create(path))
+                {
+                    serializer.Serialize(file, savedItems);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при сохранении новостей: {ex.Message}");
+            }
+        }
+
+        private void LoadSavedNews()
+        {
+            try
+            {
+                var path = Path.Combine(Application.StartupPath, "saved_news.xml");
+                if (File.Exists(path))
+                {
+                    var serializer = new System.Xml.Serialization.XmlSerializer(typeof(List<NewsItem>));
+                    using (var file = File.OpenRead(path))
+                    {
+                        savedItems = (List<NewsItem>)serializer.Deserialize(file);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при загрузке сохраненных новостей: {ex.Message}");
+            }
+        }
+    }
+}

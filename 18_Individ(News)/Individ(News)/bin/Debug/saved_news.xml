@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ArrayOfNewsItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <NewsItem>
+    <Title>Breaking News: Earthquake in Asia</Title>
+    <Description>A major earthquake hit the region early this morning.</Description>
+    <Link>https://example.com/earthquake</Link>
+    <PublishDate>2025-04-17T12:34:10.5289523+05:00</PublishDate>
+    <Source>BBC World</Source>
+    <Category>World</Category>
+  </NewsItem>
+  <NewsItem>
+    <Title>New AI Technology Unveiled</Title>
+    <Description>Tech giants have announced a breakthrough in AI research.</Description>
+    <Link>https://example.com/ai</Link>
+    <PublishDate>2025-04-16T12:34:10.5320369+05:00</PublishDate>
+    <Source>BBC Technology</Source>
+    <Category>Technology</Category>
+  </NewsItem>
+</ArrayOfNewsItem>

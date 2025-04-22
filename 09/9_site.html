@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age of Abyssal Lords - Dark Fantasy Interactive</title>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    <style>
+		 .golden-glow {
+        text-shadow: 0 0 15px #ffd700, 0 0 30px #ffd700;
+        animation: graceGlow 2s infinite;
+    }
+
+    @keyframes graceGlow {
+        0% { opacity: 0.8; }
+        50% { opacity: 1; }
+        100% { opacity: 0.8; }
+    }
+
+    .site-of-grace {
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        background: radial-gradient(circle, #ffd700 10%, transparent 70%);
+        animation: gracePulse 3s infinite;
+        pointer-events: none;
+    }
+
+    @keyframes gracePulse {
+        0% { transform: scale(0.8); opacity: 0.5; }
+        50% { transform: scale(1.2); opacity: 0.8; }
+        100% { transform: scale(0.8); opacity: 0.5; }
+    }
+
+		<!-- Добавить в секцию style -->
+
+    /* Новые стили для частиц и анимаций */
+    .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 999;
+    }
+
+    .blood-trail {
+        position: fixed;
+        width: 15px;
+        height: 15px;
+        background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,50 Q40,25 50,50 Q60,75 80,50" fill="none" stroke="%238b0000" stroke-width="3"/></svg>');
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    @keyframes itemGlow {
+        0% { filter: drop-shadow(0 0 5px var(--blood-red)); }
+        50% { filter: drop-shadow(0 0 20px var(--blood-red)); }
+        100% { filter: drop-shadow(0 0 5px var(--blood-red)); }
+    }
+
+    .cursed-text {
+        text-shadow: 0 0 10px var(--blood-red);
+        animation: cursedFlicker 0.1s infinite alternate;
+    }
+	
+        :root {
+            --blood-red: #8b0000;
+            --obsidian: #0a0a0a;
+            --rust: #b7410e;
+            --parchment: #f0e6d3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'MedievalSharp', cursive;
+            background-color: var(--obsidian);
+            color: var(--parchment);
+            overflow-x: hidden;
+        }
+
+        #video-bg {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            filter: brightness(0.4);
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.9), rgba(10,10,10,0.5));
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            animation: headerSlide 1.5s ease-out;
+        }
+
+        @keyframes headerSlide {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            text-shadow: 3px 3px 5px var(--blood-red);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            text-shadow: 5px 5px 10px var(--blood-red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--parchment);
+            text-decoration: none;
+            font-size: 1.2rem;
+            position: relative;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--blood-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .main-content {
+            margin-top: 120px;
+            padding: 2rem;
+        }
+
+        .chapter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .chapter-card {
+            background: rgba(10,10,10,0.7);
+            border: 2px solid var(--rust);
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 0 30px var(--blood-red);
+        }
+
+        .chapter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(139, 0, 0, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .chapter-card:hover::before {
+            left: 100%;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(10,10,10,0.95);
+            padding: 2rem;
+            border: 3px solid var(--blood-red);
+            border-radius: 15px;
+            z-index: 2000;
+            max-width: 600px;
+            animation: modalAppear 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes modalAppear {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .sound-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--blood-red);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .sound-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--blood-red);
+        }
+    </style>
+</head>
+<body>
+<canvas class="particles"></canvas>
+<div class="blood-trail"></div>
+<div class="site-of-grace" style="top: 30%; left: 20%;"></div>
+<div class="site-of-grace" style="top: 70%; left: 80%;"></div>
+    <video autoplay muted loop id="video-bg">
+    <source src="https://cdn.videvo.net/videvo_files/video/free/2021-12/large_watermarked/211207_06_Digital_Emotions_4k_013_preview.mp4" type="video/mp4">
+</video>
+
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">ABYSSAL LORDS</div>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Chronicles</a>
+                <a href="#" class="nav-link">Legions</a>
+                <a href="#" class="nav-link">Relics</a>
+                <a href="#" class="nav-link">Soulforge</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="chapter-container">
+            <div class="chapter-card" onclick="showModal('The Fall of Astora')">
+                <h2>The Fall of Astora</h2>
+                <p>Where the First Flame began to fade...</p>
+            </div>
+            <div class="chapter-card" onclick="showModal('The Ashen Treaty')">
+                <h2>The Ashen Treaty</h2>
+                <p>A pact sealed in dragon's blood</p>
+            </div>
+            <div class="chapter-card" onclick="showModal('Eclipse Dynasty')">
+                <h2>Eclipse Dynasty</h2>
+                <p>When the sun died in its cradle</p>
+            </div>
+        </div>
+    </main>
+
+    <div id="soundToggle" class="sound-toggle" onclick="toggleSound()">
+        <span id="soundIcon">♪</span>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <h2 id="modalTitle"></h2>
+        <p id="modalContent"></p>
+        <button onclick="closeModal()" background-color="#000" class="nav-link" style="margin-top: 1rem;">Close</button>
+    </div>
+
+    <source src="https://assets.mixkit.co/music/preview/mixkit-epic-ambient-471.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="hoverSound">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2963/2963-preview.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="clickSound">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2964/2964-preview.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="moveSound">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2578/2578-preview.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="swordSwing">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2965/2965-preview.mp3" type="audio/mpeg">
+</audio>
+
+    <script>
+	
+	 // Партиклы и трекинг курсора
+    const canvas = document.querySelector('.particles');
+    const ctx = canvas.getContext('2d');
+    const bloodTrail = document.querySelector('.blood-trail');
+    let particles = [];
+    
+    // Инициализация Canvas
+    function initCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        // Генерация частиц при движении мыши
+        document.addEventListener('mousemove', (e) => {
+            if(Math.random() > 0.7) {
+                particles.push({
+                    x: e.clientX,
+                    y: e.clientY,
+                    size: Math.random() * 3 + 2,
+                    speedX: (Math.random() - 0.5) * 2,
+                    speedY: (Math.random() - 0.5) * 2,
+                    life: 1
+                });
+            }
+            
+            // Анимация кровавого следа
+            bloodTrail.style.left = `${e.clientX - 7}px`;
+            bloodTrail.style.top = `${e.clientY - 7}px`;
+            bloodTrail.style.opacity = '1';
+            setTimeout(() => bloodTrail.style.opacity = '0', 100);
+            
+            // Случайные звуковые эффекты движения
+            if(Math.random() > 0.95) {
+                playRandomMovementSound(e.clientX / window.innerWidth);
+            }
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach((particle, index) => {
+                particle.x += particle.speedX;
+                particle.y += particle.speedY;
+                particle.life -= 0.02;
+                
+                ctx.fillStyle = `rgba(139, 0, 0, ${particle.life})`;
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fill();
+                
+                if(particle.life <= 0) {
+                    particles.splice(index, 1);
+                }
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    }
+
+    // Новая система звуков Elden Ring
+    const eldenSounds = {
+        menuOpen: 'https://assets.mixkit.co/active_storage/sfx/1061/1061-preview.mp3',
+        mapReveal: 'https://assets.mixkit.co/active_storage/sfx/2591/2591-preview.mp3',
+        graceActivation: 'https://assets.mixkit.co/active_storage/sfx/2588/2588-preview.mp3',
+        weaponSwitch: 'https://assets.mixkit.co/active_storage/sfx/2963/2963-preview.mp3'
+    };
+
+    // Модифицированный обработчик движения курсора
+    document.addEventListener('mousemove', (e) => {
+        if(Math.random() > 0.97) {
+            const swordSound = swordSwing.cloneNode();
+            swordSound.volume = 0.2 + Math.random() * 0.1;
+            swordSound.play();
+        }
+        
+        if(Math.random() > 0.98) {
+            const stepSound = new Audio(eldenSounds.graceActivation);
+            stepSound.volume = 0.1;
+            stepSound.play();
+        }
+    });
+
+    // Новая система звукового сопровождения UI
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            const sound = new Audio(eldenSounds.weaponSwitch);
+            sound.volume = 0.3;
+            sound.play();
+        });
+        
+        link.addEventListener('click', () => {
+            const sound = new Audio(eldenSounds.mapReveal);
+            sound.volume = 0.4;
+            sound.play();
+        });
+    });
+
+    // Инициализация тематического аудио
+    window.onload = () => {
+        // Загрузка основной темы
+        ambientSound.src = 'https://assets.mixkit.co/music/preview/mixkit-epic-ambient-471.mp3';
+        ambientSound.volume = 0.25;
+        ambientSound.play();
+        
+        // Случайные атмосферные звуки
+        setInterval(() => {
+            if(Math.random() > 0.8) {
+                const ambientEffect = new Audio(eldenSounds.graceActivation);
+                ambientEffect.volume = 0.15;
+                ambientEffect.play();
+            }
+        }, 15000);
+    };
+
+    // Обновить обработчики событий
+    document.querySelectorAll('.nav-link, .chapter-card').forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            hoverSound.currentTime = 0;
+            hoverSound.play();
+            element.style.animation = 'itemGlow 1.5s infinite';
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            element.style.animation = '';
+        });
+        
+        element.addEventListener('click', () => {
+            clickSound.currentTime = 0;
+            clickSound.play();
+        });
+    });
+
+    // Параллакс-скроллинг
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        document.querySelector('#video-bg').style.transform = 
+            `translateY(${scrolled * 0.5}px)`;
+    });
+
+    // Инициализация аудиоконтекста
+    let audioContext;
+    document.addEventListener('click', () => {
+        if(!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    }, { once: true });
+
+    // Запуск всего при загрузке
+    window.onload = () => {
+        initCanvas();
+        ambientSound.volume = 0.3;
+        ambientSound.play();
+        document.body.style.opacity = 1;
+    };
+        const ambientSound = document.getElementById('ambientSound');
+        let isSoundOn = true;
+
+        function toggleSound() {
+            isSoundOn = !isSoundOn;
+            document.getElementById('soundIcon').textContent = isSoundOn ? '♪' : '🔇';
+            isSoundOn ? ambientSound.play() : ambientSound.pause();
+        }
+
+        function showModal(title) {
+            const modal = document.getElementById('infoModal');
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalContent').textContent = getLoreContent(title);
+            modal.style.display = 'block';
+            if(isSoundOn) ambientSound.play();
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+
+        function getLoreContent(title) {
+            const lore = {
+                'The Fall of Astora': 'In the Age of Ancients... The world was unformed, shrouded by fog. A land of gray crags, Archtrees and Everlasting Dragons. But then there was Fire...',
+                'The Ashen Treaty': 'The accord struck between the Lords of Cinder and the Ancient Wyverns, binding the fate of men and dragons in eternal struggle...',
+                'Eclipse Dynasty': 'When the First Flame threatened to die, the Sun was consumed by the Abyss, giving birth to the first Hollow King and his Eternal Twilight Court...'
+            };
+            return lore[title];
+        }
+
+        // Parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.chapter-card');
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const cardX = rect.left + rect.width/2;
+                const cardY = rect.top + rect.height/2;
+
+                const angleX = (mouseY - cardY) / 30;
+                const angleY = (mouseX - cardX) / -30;
+
+                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(20px)`;
+            });
+        });
+
+        // Initialize ambient sound
+        window.onload = () => {
+            ambientSound.volume = 0.3;
+            ambientSound.play();
+        }
+    </script>
+</body>
+</html>

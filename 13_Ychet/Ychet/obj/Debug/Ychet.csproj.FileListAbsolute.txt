@@ -1,0 +1,17 @@
+D:\Программы\Project\Внедрение\Ychet\Ychet\obj\Debug\Ychet.csproj.AssemblyReference.cache
+D:\Программы\Project\Внедрение\Ychet\Ychet\obj\Debug\Ychet.MainForm.resources
+D:\Программы\Project\Внедрение\Ychet\Ychet\obj\Debug\Ychet.Properties.Resources.resources
+D:\Программы\Project\Внедрение\Ychet\Ychet\obj\Debug\Ychet.csproj.GenerateResource.cache
+D:\Программы\Project\Внедрение\Ychet\Ychet\obj\Debug\Ychet.csproj.CoreCompileInputs.cache
+D:\Программы\Project\Внедрение\Ychet\Ychet\bin\Debug\Ychet.exe.config
+D:\Программы\Project\Внедрение\Ychet\Ychet\bin\Debug\Ychet.exe
+D:\Программы\Project\Внедрение\Ychet\Ychet\bin\Debug\Ychet.pdb
+D:\Программы\Project\Внедрение\Ychet\Ychet\bin\Debug\BouncyCastle.Cryptography.dll
+D:\Программы\Project\Внедрение\Ychet\Ychet\bin\Debug\itextsharp.dll
+D:\Программы\Project\Внедрение\Ychet\Ychet\bin\Debug\System.Data.SQLite.dll
+D:\Программы\Project\Внедрение\Ychet\Ychet\bin\Debug\BouncyCastle.Cryptography.xml
+D:\Программы\Project\Внедрение\Ychet\Ychet\bin\Debug\itextsharp.xml
+D:\Программы\Project\Внедрение\Ychet\Ychet\bin\Debug\System.Data.SQLite.xml
+D:\Программы\Project\Внедрение\Ychet\Ychet\obj\Debug\Ychet.csproj.Up2Date
+D:\Программы\Project\Внедрение\Ychet\Ychet\obj\Debug\Ychet.exe
+D:\Программы\Project\Внедрение\Ychet\Ychet\obj\Debug\Ychet.pdb

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Генератор анекдотов</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            min-height: 100px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <div class="control-group">
+            <label>Персонаж:</label>
+            <select id="characterSelect">
+                <option value="random">Случайный</option>
+                <option value="человек">Человек</option>
+                <option value="животное">Животное</option>
+                <option value="мифическое существо">Мифическое существо</option>
+            </select>
+            <input type="text" id="characterInput" placeholder="Или введите своего персонажа">
+        </div>
+
+        <div class="control-group">
+            <label>Место действия:</label>
+            <select id="locationSelect">
+                <option value="random">Случайное</option>
+                <option value="город">Город</option>
+                <option value="лес">Лес</option>
+                <option value="космос">Космос</option>
+            </select>
+            <input type="text" id="locationInput" placeholder="Или введите свое место">
+        </div>
+
+        <div class="control-group">
+            <label>Событие:</label>
+            <select id="eventSelect">
+                <option value="random">Случайное</option>
+                <option value="праздник">Праздник</option>
+                <option value="приключение">Приключение</option>
+                <option value="катастрофа">Катастрофа</option>
+            </select>
+            <input type="text" id="eventInput" placeholder="Или введите свое событие">
+        </div>
+    </div>
+
+    <button onclick="generateJoke()">Сгенерировать анекдот</button>
+    <button onclick="randomGenerate()">Случайный анекдот</button>
+    
+    <div id="result"></div>
+
+    <script>
+        const templates = [
+            (ch, loc, ev) => `Как-то раз ${ch} оказался в ${loc}. ${ev} - подумал он... И всё пошло не по плану!`,
+            (ch, loc, ev) => `Что получится, если ${ch} устроит ${ev} в ${loc}? Правильно - классический анекдот!`,
+            (ch, loc, ev) => `${ch} в ${loc} во время ${ev}:\n- Извините, а где здесь...\n- А вот и начало анекдота!`,
+            (ch, loc, ev) => `Слышал историю про ${ch} в ${loc}? Когда начался ${ev}, все поняли - это будет весело!`
+        ];
+
+        const characters = {
+            человек: ["студент", "программист", "космонавт", "рыбак"],
+            животное: ["медведь", "енот", "слон", "попугай"],
+            "мифическое существо": ["дракон", "единорог", "гоблин", "русалка"]
+        };
+
+        const locations = {
+            город: ["Москве", "магазине", "поликлинике", "автобусе"],
+            лес: ["тайге", "джунглях", "заповеднике", "грибном месте"],
+            космос: ["МКС", "лунной базе", "черной дыре", "космическом такси"]
+        };
+
+        const events = {
+            праздник: ["дне рождения", "новом годе", "выпускном", "халявном фуршете"],
+            приключение: ["поиске сокровищ", "полете на Марс", "шопинге", "свидании вслепую"],
+            катастрофа: ["отключении интернета", "нашествии хомяков", "взрыве микроволновки", "пробке на орбите"]
+        };
+
+        function getRandom(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function getParam(selectId, inputId, data) {
+            const select = document.getElementById(selectId);
+            const input = document.getElementById(inputId);
+            
+            if (input.value.trim()) return input.value;
+            if (select.value === 'random') {
+                const category = getRandom(Object.keys(data));
+                return getRandom(data[category]);
+            }
+            return getRandom(data[select.value]);
+        }
+
+        function generateJoke() {
+            const character = getParam('characterSelect', 'characterInput', characters);
+            const location = getParam('locationSelect', 'locationInput', locations);
+            const event = getParam('eventSelect', 'eventInput', events);
+
+            const template = getRandom(templates);
+            const joke = template(character, location, event);
+            
+            document.getElementById('result').textContent = joke;
+        }
+
+        function randomGenerate() {
+            document.getElementById('characterSelect').value = 'random';
+            document.getElementById('locationSelect').value = 'random';
+            document.getElementById('eventSelect').value = 'random';
+            document.querySelectorAll('input').forEach(i => i.value = '');
+            generateJoke();
+        }
+    </script>
+</body>
+</html>

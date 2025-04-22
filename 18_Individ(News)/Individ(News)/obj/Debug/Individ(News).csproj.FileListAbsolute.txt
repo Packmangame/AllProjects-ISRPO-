@@ -1,0 +1,9 @@
+D:\Программы\Project\Внедрение\Individ(News)\Individ(News)\obj\Debug\Individ(News).csproj.AssemblyReference.cache
+D:\Программы\Project\Внедрение\Individ(News)\Individ(News)\obj\Debug\Individ_News_.Properties.Resources.resources
+D:\Программы\Project\Внедрение\Individ(News)\Individ(News)\obj\Debug\Individ(News).csproj.GenerateResource.cache
+D:\Программы\Project\Внедрение\Individ(News)\Individ(News)\obj\Debug\Individ(News).csproj.CoreCompileInputs.cache
+D:\Программы\Project\Внедрение\Individ(News)\Individ(News)\bin\Debug\Individ(News).exe.config
+D:\Программы\Project\Внедрение\Individ(News)\Individ(News)\bin\Debug\Individ(News).exe
+D:\Программы\Project\Внедрение\Individ(News)\Individ(News)\bin\Debug\Individ(News).pdb
+D:\Программы\Project\Внедрение\Individ(News)\Individ(News)\obj\Debug\Individ(News).exe
+D:\Программы\Project\Внедрение\Individ(News)\Individ(News)\obj\Debug\Individ(News).pdb

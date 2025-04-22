@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доска объявлений</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">Объявления</a>
+            <nav class="menu">
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#ads">Объявления</a></li>
+                    <li><a href="#categories">Категории</a></li>
+                    <li><a href="#about">О нас</a></li>
+                </ul>
+            </nav>
+            <div class="actions">
+                <div class="search-box">
+                    <input type="text" placeholder="Поиск...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="auth-buttons">
+                    <button class="login-btn">Вход</button>
+                    <button class="register-btn">Регистрация</button>
+                </div>
+                <div class="user-profile hidden">
+                    <span class="username"></span>
+                    <button class="logout-btn">Выйти</button>
+                </div>
+                <button class="add-ad-btn hidden"><i class="fas fa-plus"></i> Добавить</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Модальные окна -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Вход</h2>
+            <form id="login-form">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Пароль" required>
+                <button type="submit">Войти</button>
+                <a href="#" class="forgot-password">Забыли пароль?</a>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="register-form">
+                <input type="text" placeholder="Имя" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Пароль" required>
+                <input type="password" placeholder="Подтвердите пароль" required>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="ad-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Новое объявление</h2>
+            <form id="ad-form">
+                <input type="text" placeholder="Название" required>
+                <textarea placeholder="Описание" required></textarea>
+                <select id="ad-category" required>
+                    <option value="">Выберите категорию</option>
+                    <option value="electronics">Электроника</option>
+                    <option value="furniture">Мебель</option>
+                    <option value="clothes">Одежда</option>
+                    <option value="services">Услуги</option>
+                </select>
+                <input type="number" placeholder="Цена" required>
+                <div class="image-upload">
+                    <label for="ad-images">Добавить фото</label>
+                    <input type="file" id="ad-images" multiple accept="image/*">
+                    <div class="preview-container"></div>
+                </div>
+                <button type="submit">Опубликовать</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Главный экран -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Лучшая доска объявлений</h1>
+            <p>Найдите то, что ищете, или продайте ненужное</p>
+            <button class="cta-btn">Посмотреть объявления</button>
+        </div>
+    </section>
+
+    <!-- Объявления -->
+    <section id="ads" class="ads-section">
+        <div class="container">
+            <h2>Последние объявления</h2>
+            <div class="filters">
+                <select id="category-filter">
+                    <option value="all">Все категории</option>
+                    <option value="electronics">Электроника</option>
+                    <option value="furniture">Мебель</option>
+                    <option value="clothes">Одежда</option>
+                    <option value="services">Услуги</option>
+                </select>
+                <select id="price-filter">
+                    <option value="all">Любая цена</option>
+                    <option value="0-1000">До 1000 ₽</option>
+                    <option value="1000-5000">1000-5000 ₽</option>
+                    <option value="5000-10000">5000-10000 ₽</option>
+                    <option value="10000+">От 10000 ₽</option>
+                </select>
+                <select id="sort-by">
+                    <option value="newest">Сначала новые</option>
+                    <option value="oldest">Сначала старые</option>
+                    <option value="price-asc">По возрастанию цены</option>
+                    <option value="price-desc">По убыванию цены</option>
+                </select>
+            </div>
+            <div class="ads-grid">
+                <!-- Объявления будут добавляться динамически -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Категории -->
+    <section id="categories" class="categories-section">
+        <div class="container">
+            <h2>Популярные категории</h2>
+            <div class="categories-grid">
+                <div class="category-card" data-category="electronics">
+                    <i class="fas fa-laptop"></i>
+                    <h3>Электроника</h3>
+                </div>
+                <div class="category-card" data-category="furniture">
+                    <i class="fas fa-couch"></i>
+                    <h3>Мебель</h3>
+                </div>
+                <div class="category-card" data-category="clothes">
+                    <i class="fas fa-tshirt"></i>
+                    <h3>Одежда</h3>
+                </div>
+                <div class="category-card" data-category="services">
+                    <i class="fas fa-tools"></i>
+                    <h3>Услуги</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>О нашей доске объявлений</h2>
+            <div class="about-content">
+                <p>Мы предоставляем удобную платформу для покупки и продажи товаров и услуг. Наш сервис бесплатен и прост в использовании.</p>
+                <p>Присоединяйтесь к тысячам довольных пользователей!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>О нас</h3>
+                    <p>Доска объявлений с 2023 года</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p>Email: info@adsboard.com</p>
+                    <p>Телефон: +7 (123) 456-78-90</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Соцсети</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Доска объявлений. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B\\Project\\AmoCRM\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{86DB3CE8-2A42-400A-ACD2-8285AF30F280}|AmoCRM\\AmoCRM.csproj|d:\\\u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B\\project\\amocrm\\amocrm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{86DB3CE8-2A42-400A-ACD2-8285AF30F280}|AmoCRM\\AmoCRM.csproj|solutionrelative:amocrm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86DB3CE8-2A42-400A-ACD2-8285AF30F280}|AmoCRM\\AmoCRM.csproj|D:\\\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B\\Project\\AmoCRM\\amocrm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{86DB3CE8-2A42-400A-ACD2-8285AF30F280}|AmoCRM\\AmoCRM.csproj|solutionrelative:amocrm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86DB3CE8-2A42-400A-ACD2-8285AF30F280}|AmoCRM\\AmoCRM.csproj|D:\\\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B\\Project\\AmoCRM\\amocrm\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{86DB3CE8-2A42-400A-ACD2-8285AF30F280}|AmoCRM\\AmoCRM.csproj|solutionrelative:amocrm\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\79333\\AppData\\Local\\Temp\\Rar$DIa17216.30106.rartemp\\Form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "D:\\\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B\\Project\\AmoCRM\\AmoCRM\\Form1.cs",
+              "RelativeDocumentMoniker": "AmoCRM\\Form1.cs",
+              "ToolTip": "D:\\\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B\\Project\\AmoCRM\\AmoCRM\\Form1.cs",
+              "RelativeToolTip": "AmoCRM\\Form1.cs",
+              "ViewState": "AgIAAOIAAAAAAAAAAAAmwDcBAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T05:10:31.812Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "D:\\\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B\\Project\\AmoCRM\\AmoCRM\\Form1.cs",
+              "RelativeDocumentMoniker": "AmoCRM\\Form1.cs",
+              "ToolTip": "D:\\\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B\\Project\\AmoCRM\\AmoCRM\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "AmoCRM\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T05:05:02.652Z",
+              "IsPinned": true,
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\79333\\AppData\\Local\\Temp\\Rar$DIa17216.30106.rartemp\\Form1.cs",
+              "ToolTip": "C:\\Users\\79333\\AppData\\Local\\Temp\\Rar$DIa17216.30106.rartemp\\Form1.cs",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAAADwAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T05:39:51.794Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "D:\\\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B\\Project\\AmoCRM\\AmoCRM\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "AmoCRM\\Form1.Designer.cs",
+              "ToolTip": "D:\\\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B\\Project\\AmoCRM\\AmoCRM\\Form1.Designer.cs",
+              "RelativeToolTip": "AmoCRM\\Form1.Designer.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwA4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T08:13:28.041Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

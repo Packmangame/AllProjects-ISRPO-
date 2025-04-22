@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Практикум</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .task-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .task {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .task:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .task-title {
+            color: #3498db;
+            margin-top: 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .task-description {
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .output {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+            font-family: monospace;
+        }
+        input, select {
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: calc(100% - 18px);
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Практикум: 20 задач</h1>
+    
+    <div class="task-container">
+        <!-- Задача 1 -->
+        <div class="task">
+            <h3 class="task-title">1. Вывод сообщения</h3>
+            <p class="task-description">Напишите программу, которая выводит "Hello, World!" в консоль.</p>
+            <button onclick="task1()">Выполнить</button>
+            <div class="output" id="output1"></div>
+        </div>
+
+        <!-- Задача 2 -->
+        <div class="task">
+            <h3 class="task-title">2. Сложение двух чисел</h3>
+            <p class="task-description">Создайте функцию, которая принимает два числа и возвращает их сумму.</p>
+            <div class="input-group">
+                <label for="num1">Число 1:</label>
+                <input type="number" id="num1" value="5">
+            </div>
+            <div class="input-group">
+                <label for="num2">Число 2:</label>
+                <input type="number" id="num2" value="3">
+            </div>
+            <button onclick="task2()">Сложить</button>
+            <div class="output" id="output2"></div>
+        </div>
+
+        <!-- Задача 3 -->
+        <div class="task">
+            <h3 class="task-title">3. Проверка четности</h3>
+            <p class="task-description">Напишите функцию, которая принимает число и возвращает true, если оно четное, и false, если нечетное.</p>
+            <div class="input-group">
+                <label for="num3">Число:</label>
+                <input type="number" id="num3" value="4">
+            </div>
+            <button onclick="task3()">Проверить</button>
+            <div class="output" id="output3"></div>
+        </div>
+
+        <!-- Задача 4 -->
+        <div class="task">
+            <h3 class="task-title">4. Поиск максимального числа</h3>
+            <p class="task-description">Создайте функцию, которая принимает массив чисел и возвращает максимальное число из этого массива.</p>
+            <div class="input-group">
+                <label for="array4">Массив чисел (через запятую):</label>
+                <input type="text" id="array4" value="3, 1, 4, 1, 5, 9, 2, 6">
+            </div>
+            <button onclick="task4()">Найти максимум</button>
+            <div class="output" id="output4"></div>
+        </div>
+
+        <!-- Задача 5 -->
+        <div class="task">
+            <h3 class="task-title">5. Сумма элементов массива</h3>
+            <p class="task-description">Напишите функцию, которая принимает массив чисел и возвращает их сумму.</p>
+            <div class="input-group">
+                <label for="array5">Массив чисел (через запятую):</label>
+                <input type="text" id="array5" value="1, 2, 3, 4, 5">
+            </div>
+            <button onclick="task5()">Вычислить сумму</button>
+            <div class="output" id="output5"></div>
+        </div>
+
+        <!-- Задача 6 -->
+        <div class="task">
+            <h3 class="task-title">6. Обратный порядок строки</h3>
+            <p class="task-description">Создайте функцию, которая принимает строку и возвращает ее в обратном порядке.</p>
+            <div class="input-group">
+                <label for="str6">Строка:</label>
+                <input type="text" id="str6" value="Hello">
+            </div>
+            <button onclick="task6()">Обратить строку</button>
+            <div class="output" id="output6"></div>
+        </div>
+
+        <!-- Задача 7 -->
+        <div class="task">
+            <h3 class="task-title">7. Проверка палиндрома</h3>
+            <p class="task-description">Напишите функцию, которая проверяет, является ли строка палиндромом (читается одинаково с обеих сторон).</p>
+            <div class="input-group">
+                <label for="str7">Строка:</label>
+                <input type="text" id="str7" value="racecar">
+            </div>
+            <button onclick="task7()">Проверить</button>
+            <div class="output" id="output7"></div>
+        </div>
+
+        <!-- Задача 8 -->
+        <div class="task">
+            <h3 class="task-title">8. Факториал числа</h3>
+            <p class="task-description">Создайте функцию, которая вычисляет факториал заданного числа.</p>
+            <div class="input-group">
+                <label for="num8">Число:</label>
+                <input type="number" id="num8" value="5" min="0">
+            </div>
+            <button onclick="task8()">Вычислить</button>
+            <div class="output" id="output8"></div>
+        </div>
+
+        <!-- Задача 9 -->
+        <div class="task">
+            <h3 class="task-title">9. Генерация случайного числа</h3>
+            <p class="task-description">Напишите программу, которая генерирует случайное число от 1 до 100 и выводит его в консоль.</p>
+            <button onclick="task9()">Сгенерировать</button>
+            <div class="output" id="output9"></div>
+        </div>
+
+        <!-- Задача 10 -->
+        <div class="task">
+            <h3 class="task-title">10. Сортировка массива</h3>
+            <p class="task-description">Создайте функцию, которая принимает массив чисел и сортирует его по возрастанию.</p>
+            <div class="input-group">
+                <label for="array10">Массив чисел (через запятую):</label>
+                <input type="text" id="array10" value="3, 1, 4, 1, 5, 9, 2, 6">
+            </div>
+            <button onclick="task10()">Отсортировать</button>
+            <div class="output" id="output10"></div>
+        </div>
+
+        <!-- Задача 11 -->
+        <div class="task">
+            <h3 class="task-title">11. Удаление дубликатов из массива</h3>
+            <p class="task-description">Напишите функцию, которая принимает массив и возвращает новый массив без дубликатов.</p>
+            <div class="input-group">
+                <label for="array11">Массив (через запятую):</label>
+                <input type="text" id="array11" value="1, 2, 2, 3, 4, 4, 5">
+            </div>
+            <button onclick="task11()">Удалить дубликаты</button>
+            <div class="output" id="output11"></div>
+        </div>
+
+        <!-- Задача 12 -->
+        <div class="task">
+            <h3 class="task-title">12. Конвертация градусов Цельсия в Фаренгейт</h3>
+            <p class="task-description">Создайте функцию, которая принимает температуру в градусах Цельсия и возвращает ее в градусах Фаренгейта.</p>
+            <div class="input-group">
+                <label for="celsius">Градусы Цельсия:</label>
+                <input type="number" id="celsius" value="25">
+            </div>
+            <button onclick="task12()">Конвертировать</button>
+            <div class="output" id="output12"></div>
+        </div>
+
+        <!-- Задача 13 -->
+        <div class="task">
+            <h3 class="task-title">13. Подсчет гласных букв в строке</h3>
+            <p class="task-description">Напишите функцию, которая считает количество гласных букв в заданной строке.</p>
+            <div class="input-group">
+                <label for="str13">Строка:</label>
+                <input type="text" id="str13" value="Hello World">
+            </div>
+            <button onclick="task13()">Посчитать гласные</button>
+            <div class="output" id="output13"></div>
+        </div>
+
+        <!-- Задача 14 -->
+        <div class="task">
+            <h3 class="task-title">14. Создание объекта пользователя</h3>
+            <p class="task-description">Создайте объект user с полями name, age и email. Выведите его свойства в консоль.</p>
+            <button onclick="task14()">Создать и вывести</button>
+            <div class="output" id="output14"></div>
+        </div>
+
+        <!-- Задача 15 -->
+        <div class="task">
+            <h3 class="task-title">15. Калькулятор</h3>
+            <p class="task-description">Напишите простую программу-калькулятор, которая выполняет операции сложения, вычитания, умножения и деления двух чисел.</p>
+            <div class="input-group">
+                <label for="num15a">Число 1:</label>
+                <input type="number" id="num15a" value="10">
+            </div>
+            <div class="input-group">
+                <label for="num15b">Число 2:</label>
+                <input type="number" id="num15b" value="5">
+            </div>
+            <div class="input-group">
+                <label for="operation">Операция:</label>
+                <select id="operation">
+                    <option value="+">Сложение (+)</option>
+                    <option value="-">Вычитание (-)</option>
+                    <option value="*">Умножение (*)</option>
+                    <option value="/">Деление (/)</option>
+                </select>
+            </div>
+            <button onclick="task15()">Вычислить</button>
+            <div class="output" id="output15"></div>
+        </div>
+
+        <!-- Задача 16 -->
+        <div class="task">
+            <h3 class="task-title">16. Фильтрация массива объектов</h3>
+            <p class="task-description">Создайте массив объектов с информацией о пользователях (имя и возраст). Напишите функцию для фильтрации пользователей по возрасту (например, старше 18 лет).</p>
+            <div class="input-group">
+                <label for="minAge">Минимальный возраст:</label>
+                <input type="number" id="minAge" value="18" min="0">
+            </div>
+            <button onclick="task16()">Фильтровать</button>
+            <div class="output" id="output16"></div>
+        </div>
+
+        <!-- Задача 17 -->
+        <div class="task">
+            <h3 class="task-title">17. Проверка наличия элемента в массиве</h3>
+            <p class="task-description">Напишите функцию, которая проверяет наличие заданного элемента в массиве и возвращает true или false.</p>
+            <div class="input-group">
+                <label for="array17">Массив (через запятую):</label>
+                <input type="text" id="array17" value="apple, banana, orange">
+            </div>
+            <div class="input-group">
+                <label for="element17">Искомый элемент:</label>
+                <input type="text" id="element17" value="banana">
+            </div>
+            <button onclick="task17()">Проверить</button>
+            <div class="output" id="output17"></div>
+        </div>
+
+        <!-- Задача 18 -->
+        <div class="task">
+            <h3 class="task-title">18. Слияние двух массивов</h3>
+            <p class="task-description">Создайте функцию, которая объединяет два массива в один без дубликатов.</p>
+            <div class="input-group">
+                <label for="array18a">Массив 1 (через запятую):</label>
+                <input type="text" id="array18a" value="1, 2, 3">
+            </div>
+            <div class="input-group">
+                <label for="array18b">Массив 2 (через запятую):</label>
+                <input type="text" id="array18b" value="3, 4, 5">
+            </div>
+            <button onclick="task18()">Объединить</button>
+            <div class="output" id="output18"></div>
+        </div>
+
+        <!-- Задача 19 -->
+        <div class="task">
+            <h3 class="task-title">19. Калькуляция среднего значения массива</h3>
+            <p class="task-description">Напишите функцию, которая вычисляет среднее значение элементов массива чисел.</p>
+            <div class="input-group">
+                <label for="array19">Массив чисел (через запятую):</label>
+                <input type="text" id="array19" value="10, 20, 30, 40">
+            </div>
+            <button onclick="task19()">Вычислить среднее</button>
+            <div class="output" id="output19"></div>
+        </div>
+
+        <!-- Задача 20 -->
+        <div class="task">
+            <h3 class="task-title">20. Таймер обратного отсчета</h3>
+            <p class="task-description">Реализуйте простой таймер обратного отсчета на JavaScript с использованием функции setInterval.</p>
+            <div class="input-group">
+                <label for="seconds">Количество секунд:</label>
+                <input type="number" id="seconds" value="10" min="1">
+            </div>
+            <button onclick="startCountdown()">Запустить таймер</button>
+            <button onclick="stopCountdown()">Остановить</button>
+            <div class="output" id="output20"></div>
+        </div>
+    </div>
+
+    <script>
+        // Задача 1
+        function task1() {
+            console.log("Hello, World!");
+            document.getElementById("output1").textContent = "Результат выведен в консоль (F12 для просмотра)";
+        }
+
+        // Задача 2
+        function task2() {
+            const num1 = parseFloat(document.getElementById("num1").value);
+            const num2 = parseFloat(document.getElementById("num2").value);
+            const sum = num1 + num2;
+            document.getElementById("output2").textContent = `Сумма: ${sum}`;
+        }
+
+        // Задача 3
+        function task3() {
+            const num = parseInt(document.getElementById("num3").value);
+            const isEven = num % 2 === 0;
+            document.getElementById("output3").textContent = isEven ? "true (четное)" : "false (нечетное)";
+        }
+
+        // Задача 4
+        function task4() {
+            const arrStr = document.getElementById("array4").value;
+            const arr = arrStr.split(',').map(item => parseFloat(item.trim()));
+            const max = Math.max(...arr);
+            document.getElementById("output4").textContent = `Максимальное число: ${max}`;
+        }
+
+        // Задача 5
+        function task5() {
+            const arrStr = document.getElementById("array5").value;
+            const arr = arrStr.split(',').map(item => parseFloat(item.trim()));
+            const sum = arr.reduce((acc, val) => acc + val, 0);
+            document.getElementById("output5").textContent = `Сумма: ${sum}`;
+        }
+
+        // Задача 6
+        function task6() {
+            const str = document.getElementById("str6").value;
+            const reversed = str.split('').reverse().join('');
+            document.getElementById("output6").textContent = `Обратная строка: ${reversed}`;
+        }
+
+        // Задача 7
+        function task7() {
+            const str = document.getElementById("str7").value.toLowerCase().replace(/[^a-zа-яё]/g, '');
+            const reversed = str.split('').reverse().join('');
+            const isPalindrome = str === reversed;
+            document.getElementById("output7").textContent = isPalindrome ? "true (это палиндром)" : "false (это не палиндром)";
+        }
+
+        // Задача 8
+        function task8() {
+            const num = parseInt(document.getElementById("num8").value);
+            let factorial = 1;
+            for (let i = 2; i <= num; i++) {
+                factorial *= i;
+            }
+            document.getElementById("output8").textContent = `Факториал: ${factorial}`;
+        }
+
+        // Задача 9
+        function task9() {
+            const randomNum = Math.floor(Math.random() * 100) + 1;
+            console.log("Случайное число:", randomNum);
+            document.getElementById("output9").textContent = `Сгенерировано число: ${randomNum} (также в консоли)`;
+        }
+
+        // Задача 10
+        function task10() {
+            const arrStr = document.getElementById("array10").value;
+            const arr = arrStr.split(',').map(item => parseFloat(item.trim()));
+            const sorted = [...arr].sort((a, b) => a - b);
+            document.getElementById("output10").textContent = `Отсортированный массив: [${sorted.join(', ')}]`;
+        }
+
+        // Задача 11
+        function task11() {
+            const arrStr = document.getElementById("array11").value;
+            const arr = arrStr.split(',').map(item => item.trim());
+            const unique = [...new Set(arr)];
+            document.getElementById("output11").textContent = `Массив без дубликатов: [${unique.join(', ')}]`;
+        }
+
+        // Задача 12
+        function task12() {
+            const celsius = parseFloat(document.getElementById("celsius").value);
+            const fahrenheit = (celsius * 9/5) + 32;
+            document.getElementById("output12").textContent = `${celsius}°C = ${fahrenheit.toFixed(1)}°F`;
+        }
+
+        // Задача 13
+        function task13() {
+            const str = document.getElementById("str13").value.toLowerCase();
+            const vowels = str.match(/[aeiouаеёиоуыэюя]/g) || [];
+            document.getElementById("output13").textContent = `Количество гласных: ${vowels.length}`;
+        }
+
+        // Задача 14
+        function task14() {
+            const user = {
+                name: "Иван Иванов",
+                age: 30,
+                email: "ivan@example.com"
+            };
+            console.log("Объект пользователя:", user);
+            document.getElementById("output14").textContent = 
+                `Имя: ${user.name}, Возраст: ${user.age}, Email: ${user.email} (также в консоли)`;
+        }
+
+        // Задача 15
+        function task15() {
+            const num1 = parseFloat(document.getElementById("num15a").value);
+            const num2 = parseFloat(document.getElementById("num15b").value);
+            const operation = document.getElementById("operation").value;
+            let result;
+            
+            switch(operation) {
+                case '+': result = num1 + num2; break;
+                case '-': result = num1 - num2; break;
+                case '*': result = num1 * num2; break;
+                case '/': result = num1 / num2; break;
+                default: result = "Неизвестная операция";
+            }
+            
+            document.getElementById("output15").textContent = `Результат: ${result}`;
+        }
+
+        // Задача 16
+        function task16() {
+            const users = [
+                { name: "Алексей", age: 25 },
+                { name: "Мария", age: 17 },
+                { name: "Игорь", age: 32 },
+                { name: "Ольга", age: 19 },
+                { name: "Дмитрий", age: 15 }
+            ];
+            
+            const minAge = parseInt(document.getElementById("minAge").value);
+            const filtered = users.filter(user => user.age >= minAge);
+            
+            document.getElementById("output16").textContent = 
+                `Пользователи старше ${minAge} лет:\n${filtered.map(u => `${u.name} (${u.age})`).join(', ')}`;
+        }
+
+        // Задача 17
+        function task17() {
+            const arrStr = document.getElementById("array17").value;
+            const arr = arrStr.split(',').map(item => item.trim());
+            const element = document.getElementById("element17").value.trim();
+            const isFound = arr.includes(element);
+            
+            document.getElementById("output17").textContent = 
+                isFound ? "true (элемент найден)" : "false (элемент не найден)";
+        }
+
+        // Задача 18
+        function task18() {
+            const arr1Str = document.getElementById("array18a").value;
+            const arr2Str = document.getElementById("array18b").value;
+            const arr1 = arr1Str.split(',').map(item => item.trim());
+            const arr2 = arr2Str.split(',').map(item => item.trim());
+            const merged = [...new Set([...arr1, ...arr2])];
+            
+            document.getElementById("output18").textContent = 
+                `Объединенный массив без дубликатов: [${merged.join(', ')}]`;
+        }
+
+        // Задача 19
+        function task19() {
+            const arrStr = document.getElementById("array19").value;
+            const arr = arrStr.split(',').map(item => parseFloat(item.trim()));
+            const avg = arr.reduce((acc, val) => acc + val, 0) / arr.length;
+            
+            document.getElementById("output19").textContent = 
+                `Среднее значение: ${avg.toFixed(2)}`;
+        }
+
+        // Задача 20
+        let countdownInterval;
+        
+        function startCountdown() {
+            clearInterval(countdownInterval);
+            let seconds = parseInt(document.getElementById("seconds").value);
+            const output = document.getElementById("output20");
+            
+            output.textContent = `Осталось: ${seconds} сек.`;
+            
+            countdownInterval = setInterval(() => {
+                seconds--;
+                output.textContent = `Осталось: ${seconds} сек.`;
+                
+                if (seconds <= 0) {
+                    clearInterval(countdownInterval);
+                    output.textContent += " Время вышло!";
+                }
+            }, 1000);
+        }
+        
+        function stopCountdown() {
+            clearInterval(countdownInterval);
+            document.getElementById("output20").textContent = "Таймер остановлен";
+        }
+    </script>
+</body>
+</html>

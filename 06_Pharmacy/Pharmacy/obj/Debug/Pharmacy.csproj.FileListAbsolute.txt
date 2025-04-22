@@ -1,0 +1,10 @@
+D:\Программы\Project\Внедрение\Pharmacy\Pharmacy\bin\Debug\Pharmacy.exe.config
+D:\Программы\Project\Внедрение\Pharmacy\Pharmacy\bin\Debug\Pharmacy.exe
+D:\Программы\Project\Внедрение\Pharmacy\Pharmacy\bin\Debug\Pharmacy.pdb
+D:\Программы\Project\Внедрение\Pharmacy\Pharmacy\obj\Debug\Pharmacy.csproj.AssemblyReference.cache
+D:\Программы\Project\Внедрение\Pharmacy\Pharmacy\obj\Debug\Pharmacy.Form1.resources
+D:\Программы\Project\Внедрение\Pharmacy\Pharmacy\obj\Debug\Pharmacy.Properties.Resources.resources
+D:\Программы\Project\Внедрение\Pharmacy\Pharmacy\obj\Debug\Pharmacy.csproj.GenerateResource.cache
+D:\Программы\Project\Внедрение\Pharmacy\Pharmacy\obj\Debug\Pharmacy.csproj.CoreCompileInputs.cache
+D:\Программы\Project\Внедрение\Pharmacy\Pharmacy\obj\Debug\Pharmacy.exe
+D:\Программы\Project\Внедрение\Pharmacy\Pharmacy\obj\Debug\Pharmacy.pdb
